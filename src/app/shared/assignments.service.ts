@@ -4,6 +4,7 @@ import { Observable, catchError, forkJoin, map, of, tap } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 import { bdInitialAssignments } from './data';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +12,16 @@ import { bdInitialAssignments } from './data';
 export class AssignmentsService {
 // tableau de devoirs à rendre
 assignments:Assignment[] = []
-  constructor(private loggingService:LoggingService,
-    private http:HttpClient) { }
+  constructor(private loggingService:LoggingService, private http:HttpClient) { }
 
-    //uri_api = 'http://localhost:8010/api/assignments';
-    uri_api = 'https://mbds-madagascar-2022-2023-back-end.onrender.com/api/assignments';
+  private uri_api = environment.apiURI+'/api/assignments';
 
   getAssignments(page:number, limit:number):Observable<any> {
     // normalement on doit envoyer une requête HTTP
     // sur un web service, et ça peut prendre du temps
     // On a donc besoin "d'attendre que les données arrivent".
     // Angular utilise pour cela la notion d'Observable
+    console.log(this.uri_api);
     return this.http.get<Assignment[]>(this.uri_api + "?page=" + page + "&limit=" + limit);
     
     // of() permet de créer un Observable qui va
