@@ -11,7 +11,12 @@
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
+    <mat-form-field>
+        <mat-label>Matière</mat-label>
+        <mat-select name="matiere"  [(ngModel)]="selectedMatiere" (selectionChange)="onSelectionChange($event)">
+          <mat-option *ngFor="let matiere of matieres" [value]="matiere">{{matiere.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     <button mat-stroked-button color="primary">
         Ajouter un devoir
     </button>

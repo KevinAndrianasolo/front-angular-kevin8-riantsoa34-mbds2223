@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from './shared/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AssignmentsService } from './shared/assignments.service';
+import { MatieresService } from './shared/matieres.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
 
   constructor(private authService:AuthService, 
               private router:Router,
-              private assigmmentsService:AssignmentsService) {
+              private assigmmentsService:AssignmentsService, 
+              private matiereService:MatieresService) {
     console.log(router.url);
 
     router.events.subscribe(event => {
@@ -50,6 +52,11 @@ export class AppComponent {
   }
 
   creerDonneesDeTest() {
+    this.matiereService.peuplerBDavecForkJoin()
+    .subscribe(() => {
+      console.log("Opération terminée, matières insérées")
+    });
+
     this.assigmmentsService.peuplerBDavecForkJoin()
     .subscribe(() => {
       console.log("Opération terminée, les 1000 données ont été insérées")
