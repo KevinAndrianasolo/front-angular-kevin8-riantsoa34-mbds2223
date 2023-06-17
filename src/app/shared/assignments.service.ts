@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Assignment } from '../assignments/assignment.model';
+import { Assignment, Auteur, Matiere, Prof } from '../assignments/assignment.model';
 import { Observable, catchError, forkJoin, map, of, tap } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
@@ -118,6 +118,27 @@ assignments:Assignment[] = []
       newAssignment.dateDeRendu = new Date(a.dateDeRendu);
       newAssignment.rendu = a.rendu;
 
+      // Auteur
+      const auteur = new Auteur();
+      auteur.nom = a.auteur.nom;
+      auteur.photo = a.auteur.photo;
+      newAssignment.auteur = auteur;
+
+      // Matiere & Prof
+      const prof = new Prof();
+      prof.nom = a.matiere.prof.nom;
+      prof.photo = a.matiere.prof.photo;
+
+      const matiere = new Matiere();
+      matiere.nom = a.matiere.nom;
+      matiere.photo = a.matiere.photo;
+      matiere.prof = prof;
+      newAssignment.matiere = matiere;
+
+      // Attributs Additionnels : Note et Remarques
+      newAssignment.note = a.note;
+      newAssignment.remarques = a.remarques;
+
       this.addAssignment(newAssignment)
       .subscribe((reponse) => {
         console.log(reponse.message);
@@ -137,7 +158,28 @@ assignments:Assignment[] = []
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
- 
+
+      // Auteur
+      const auteur = new Auteur();
+      auteur.nom = a.auteur.nom;
+      auteur.photo = a.auteur.photo;
+      nouvelAssignment.auteur = auteur;
+
+      // Matiere & Prof
+      const prof = new Prof();
+      prof.nom = a.matiere.prof.nom;
+      prof.photo = a.matiere.prof.photo;
+
+      const matiere = new Matiere();
+      matiere.nom = a.matiere.nom;
+      matiere.photo = a.matiere.photo;
+      matiere.prof = prof;
+      nouvelAssignment.matiere = matiere;
+
+      // Attributs Additionnels : Note et Remarques
+      nouvelAssignment.note = a.note;
+      nouvelAssignment.remarques = a.remarques;
+
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
     });
  
