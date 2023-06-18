@@ -3,7 +3,7 @@ import { Assignment, Auteur, Matiere, Prof } from '../assignments/assignment.mod
 import { Observable, catchError, forkJoin, map, of, tap } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
-import { bdInitialAssignments } from './data';
+import { bdInitialAssignments, bdInitialMatieres } from './data';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -32,7 +32,7 @@ assignments:Assignment[] = []
   getAssignment(id:number):Observable<Assignment|undefined> {
     // Plus tard on utilisera un Web Service et une BD
     return this.http.get<Assignment|undefined>(`${this.uri_api}/${id}`)
-   
+   /*
     .pipe(
       map(a => {
         if(a) {
@@ -51,7 +51,7 @@ assignments:Assignment[] = []
         return a;
       }),
       catchError(this.handleError<Assignment>("Erreur dans le traitement de assignment avec id = " + id))
-    )
+    )*/
     
     // On va chercher dans le tableau des assignments
     // l'assignment dont l'id est celui passé en paramètre

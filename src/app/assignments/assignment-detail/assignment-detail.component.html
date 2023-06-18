@@ -1,3 +1,4 @@
+<!--
 <mat-card *ngIf="assignmentTransmis">
   <mat-card-content>
     <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
@@ -9,6 +10,50 @@
     </mat-checkbox>
     
     <button mat-raised-button color="primary"
+            (click)="onEditAssignment()"
+            [disabled]="!isLogged()"
+    >
+      EDIT
+    </button>
+
+  <button mat-raised-button color="accent" (click)="onDeleteAssignment()">DELETE</button>
+  </mat-card-actions>
+</mat-card>
+-->
+<mat-card class="assignment-card"  *ngIf="assignmentTransmis">
+  <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+          <img class="avatar" src="{{assignmentTransmis.auteur.photo}}">
+      </div>
+      <mat-card-title>Par {{assignmentTransmis.auteur.nom}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src="{{assignmentTransmis.matiere.photo}}" alt="{{assignmentTransmis.matiere.nom}}">
+  <mat-card-content>
+      <h3 mat-subheader>Date limite: {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yy'}}</h3>
+      <p><b>Matière : </b>{{assignmentTransmis.matiere.nom}}</p>
+
+      <div appRendu *ngIf="assignmentTransmis.rendu; else nonsoumis">
+          <p>{{assignmentTransmis.nom}} id = {{assignmentTransmis._id}}</p>
+          <p><b>Note : </b>{{assignmentTransmis.note}}</p>
+          <p *ngIf="assignmentTransmis.remarques"><b>Remarques : </b>{{assignmentTransmis.remarques}}</p>
+      </div>
+      <ng-template #nonsoumis>
+          <p>{{assignmentTransmis.nom}} NON RENDU id = {{assignmentTransmis._id}}</p>
+      </ng-template>
+      <div class="prof-container">
+          <p><b>Photo du prof</b></p>
+          <div mat-card-avatar class="example-header-image">
+              <img class="avatar" src="{{assignmentTransmis.matiere.prof.photo}}">
+          </div>
+      </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <!--
+      <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
+        Rendu
+      </mat-checkbox>
+      -->
+      <button mat-raised-button color="primary"
             (click)="onEditAssignment()"
             [disabled]="!isLogged()"
     >

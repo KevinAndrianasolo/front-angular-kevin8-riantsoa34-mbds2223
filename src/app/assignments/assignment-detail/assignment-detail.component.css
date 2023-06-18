@@ -3,3 +3,27 @@
     align-items: flex-end;
     justify-content: space-between;
 }
+
+.assignment-card{
+    width : 450px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+
+    
+  }
+  .assignment-card .mdc-card__media{
+    width : 100%;
+    height : 200px;
+    object-fit: cover;
+  }
+  .assignment-card .mat-mdc-card-content{
+    height : 100%;
+  }
+  .assignment-card .mat-mdc-card-avatar{
+    overflow: hidden;
+  }
+  .assignment-card .avatar{
+      width : 100%;
+      height: 100%;
+      object-fit: cover;
+  }

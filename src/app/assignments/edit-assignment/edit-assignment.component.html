@@ -1,16 +1,41 @@
 <div class="container" *ngIf="assignment">
     <h1>Edition de l'assignment {{assignment.nom}}</h1>
-    <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
+    <form ngForm class="form" #formupdate (submit)="onSaveAssignment();">
       <mat-form-field>
-        <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
+        <input matInput placeholder="Edition du nom" [(ngModel)]="assignmentFormValues.nom" name="assignment-name">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
+        <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="assignmentFormValues.dateDeRendu" name="date">
         <mat-datepicker-toggle matSuffix [for]="picker">
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
+      <mat-form-field>
+        <mat-label>Matière</mat-label>
+        <mat-select name="matiere" [compareWith]="compareMatiereOptions" [(ngModel)]="assignmentFormValues.matiere">
+          <mat-option *ngFor="let matiere of matieres" [value]="matiere">{{matiere.nom}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <h2>Détails du rendu</h2>
+      <mat-checkbox (click)="onAssignmentRendu()" [(ngModel)]="assignmentFormValues.rendu"  name="assignment-rendu">
+        Rendu
+      </mat-checkbox>
+      <ng-container *ngIf="assignmentFormValues.rendu">
+        <mat-form-field>
+          <input matInput placeholder="Edition de la note" [(ngModel)]="assignmentFormValues.note" name="assignment-note" [required]="assignmentFormValues.rendu">
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Edition des remarques" [(ngModel)]="assignmentFormValues.remarques" name="assignment-remarques"></textarea>
+        </mat-form-field>
+      </ng-container>
+
+      
+
+      
+      
+      
+      <button mat-raised-button color="primary" [disabled]="((!assignmentFormValues.nom)||(!assignmentFormValues.dateDeRendu))">
         Sauver
       </button>
     </form>
