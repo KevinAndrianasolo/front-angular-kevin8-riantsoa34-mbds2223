@@ -1,19 +1,19 @@
-<form ngForm #assignmentForm (submit)="onSubmit($event); assignmentForm.reset()" class="form">
+<form ngForm #assignmentForm (submit)="onSubmit($event);" class="form">
 
     <mat-form-field>
-        <input matInput [(ngModel)]="nomDevoir" name="nom" placeholder="Nom du devoir" required>
+        <input matInput [(ngModel)]="assignmentFormValues.nom" name="nom" placeholder="Nom du devoir" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
         <mat-label>Date de rendu</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" required>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="assignmentFormValues.dateDeRendu" name="date" required>
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Matière</mat-label>
-        <mat-select name="matiere"  [(ngModel)]="selectedMatiere" (selectionChange)="onSelectionChange($event)">
+        <mat-select name="matiere"  [(ngModel)]="assignmentFormValues.matiere" (selectionChange)="onSelectionChange($event)" required>
           <mat-option *ngFor="let matiere of matieres" [value]="matiere">{{matiere.nom}}</mat-option>
         </mat-select>
       </mat-form-field>

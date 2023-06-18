@@ -30,7 +30,7 @@ export class EditAssignmentComponent implements OnInit {
     this.matieresService.getMatieres()
       .subscribe(data => {
         this.matieres = data;
-        console.log("Données reçues", data);
+        console.log("Matières reçues", data);
       });
   }
 
@@ -43,21 +43,11 @@ export class EditAssignmentComponent implements OnInit {
     // le "+" force l'id de type string en "number"
     const id = +this.route.snapshot.params['id'];
 
-    // Exemple de récupération des query params (après le ? dans l'url)
-    const queryParams = this.route.snapshot.queryParams;
-    console.log(queryParams);
-    console.log("nom :" + queryParams['nom'])
-    console.log("matière :" + queryParams['matiere'])
-
-    // Exemple de récupération du fragment (après le # dans l'url)
-    const fragment = this.route.snapshot.fragment;
-    console.log("Fragment = " + fragment);
-
     this.assignmentsService.getAssignment(id)
       .subscribe((assignment) => {
         if (!assignment) return;
         this.assignment = assignment;
-        console.log(this.assignment);
+        console.log("assignment to edit" , this.assignment);
         // Pour pré-remplir le formulaire
         this.assignmentFormValues = Object.assign({}, this.assignment);
       });

@@ -13,10 +13,8 @@ import { MatSelectChange } from '@angular/material/select';
 export class AddAssignmentComponent {
 
   // champs du formulaire
-  nomDevoir = "";
-  dateDeRendu!: Date;
-  selectedMatiere: Matiere = new Matiere();
-
+  // associées aux champs du formulaire
+  assignmentFormValues !: Assignment;
 
   matieres: Matiere[] = [];
 
@@ -26,6 +24,7 @@ export class AddAssignmentComponent {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.assignmentFormValues = new Assignment();
     this.getMatieres();
   }
 
@@ -40,22 +39,17 @@ export class AddAssignmentComponent {
   }
   onSubmit(event: any) {
     // On vérifie que les champs ne sont pas vides
-    if (this.nomDevoir === "") return;
-    if (this.dateDeRendu === undefined) return;
+    if (!this.assignmentFormValues.nom || this.assignmentFormValues.nom === "") return;
+    if (!this.assignmentFormValues.dateDeRendu) return;
+    if (!this.assignmentFormValues.matiere) return;
 
-    let nouvelAssignment = new Assignment();
-    // génération d'id, plus tard ce sera fait dans la BD
-    nouvelAssignment.id = Math.abs(Math.random() * 1000000000000000);
-    nouvelAssignment.nom = this.nomDevoir;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
+    this.assignmentFormValues.rendu = false;
 
     // ici on doit mettre l'utilisateur connécté
-    nouvelAssignment.auteur = {"nom":"Aurthur Eveling","photo":"http://dummyimage.com/141x100.png/dddddd/000000"};
-    nouvelAssignment.matiere = this.selectedMatiere;
+    this.assignmentFormValues.auteur = {"nom":"Aurthur Eveling","photo":"http://dummyimage.com/141x100.png/dddddd/000000"};
 
     // on demande au service d'ajouter l'assignment
-    this.assignmentsService.addAssignment(nouvelAssignment)
+    this.assignmentsService.addAssignment(this.assignmentFormValues)
       .subscribe(message => {
         console.log(message);
 
