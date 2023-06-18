@@ -45,6 +45,7 @@
 .assignment-list{
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 .assignment-card{
   width : 450px;

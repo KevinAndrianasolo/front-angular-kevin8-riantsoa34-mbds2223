@@ -3,6 +3,7 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -15,7 +16,8 @@ export class AssignmentDetailComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService:AuthService) { }
+    private authService:AuthService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     // appelée avant le rendu du composant
@@ -40,11 +42,12 @@ export class AssignmentDetailComponent implements OnInit {
     this.assignmentsService.deleteAssignment(this.assignmentTransmis)
       .subscribe(message => {
         console.log(message);
+        this._snackBar.open("Assignement supprimé avec succès", "Fermer");
         // Pour cacher le detail, on met l'assignment à null
         this.assignmentTransmis = undefined;
 
         // et on navigue vers la page d'accueil
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/assignments"]);
       });
 
   }

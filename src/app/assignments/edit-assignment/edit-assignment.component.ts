@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment, Matiere } from '../assignment.model';
 import { MatieresService } from 'src/app/shared/matieres.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -21,7 +22,8 @@ export class EditAssignmentComponent implements OnInit {
   constructor(private assignmentsService: AssignmentsService,
     private matieresService: MatieresService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar) { }
 
 
   getMatieres() {
@@ -61,9 +63,11 @@ export class EditAssignmentComponent implements OnInit {
       .updateAssignment(this.assignmentFormValues)
       .subscribe((message) => {
         console.log(message);
+        this._snackBar.open("Assignement modifié avec succès", "Fermer");
+
 
         // navigation vers la home page
-        this.router.navigate(['/home']);
+        this.router.navigate(['/assignments']);
       });
   }
 

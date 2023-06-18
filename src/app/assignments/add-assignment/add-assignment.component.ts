@@ -4,6 +4,7 @@ import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Router } from '@angular/router';
 import { MatieresService } from 'src/app/shared/matieres.service';
 import { MatSelectChange } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-assignment',
@@ -21,7 +22,8 @@ export class AddAssignmentComponent {
 
   constructor(private assignmentsService: AssignmentsService,
     private matieresService: MatieresService,
-    private router: Router) { }
+    private router: Router, 
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.assignmentFormValues = new Assignment();
@@ -52,10 +54,11 @@ export class AddAssignmentComponent {
     this.assignmentsService.addAssignment(this.assignmentFormValues)
       .subscribe(message => {
         console.log(message);
+        this._snackBar.open("Assignement ajouté avec succès", "Fermer");
 
         // On va naviguer vers la page d'accueil pour afficher la liste
         // des assignments
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/assignments"]);
 
       });
   }

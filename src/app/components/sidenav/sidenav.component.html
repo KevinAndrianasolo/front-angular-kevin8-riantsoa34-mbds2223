@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav mode="side" opened>
+        <!-- Content for the side nav -->
+        <mat-nav-list>
+            <a mat-list-item routerLink="/">Accueil</a>
+            <a mat-list-item routerLink="/assignments">Assignments</a>
+            <!-- Add more navigation links as needed -->
+            <a mat-list-item routerLink="/login">
+                <!--<button mat-raised-button (click)="login()">{{labelConnexion}}</button>-->
+                {{labelConnexion}}
+            </a>
+
+           
+        </mat-nav-list>
+        
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <h1>
+            <nav>
+                <a routerLink="/home">{{title}}</a>
+            </nav>
+        </h1>
+        <!--
+        <p>
+            <button mat-raised-button color="primary" (click)="creerDonneesDeTest()">
+                Peupler BD avec données de test
+            </button>
+        </p>
+        -->
+        <p mat-list-item *ngIf="isLogged()">Bienvenue, {{nom}}</p>
+        <!-- Content for the main area -->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
