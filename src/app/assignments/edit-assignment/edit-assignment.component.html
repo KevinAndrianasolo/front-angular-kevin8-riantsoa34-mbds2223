@@ -1,5 +1,6 @@
 <div class="container" *ngIf="assignment">
     <h1>Edition de l'assignment {{assignment.nom}}</h1>
+    <!--
     <form ngForm class="form" #formupdate (submit)="onSaveAssignment();">
       <mat-form-field>
         <input matInput placeholder="Edition du nom" [(ngModel)]="assignmentFormValues.nom" name="assignment-name">
@@ -40,5 +41,77 @@
         Sauver
       </button>
     </form>
+-->
+
+
+    <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Remplir les informations de l'assignment</ng-template>
+            <mat-form-field>
+              <mat-label>Nom</mat-label>
+              <input matInput formControlName="nom" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Date de rendu</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateDeRendu" required>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperNext>Suivant</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Définir la matière</ng-template>
+            <mat-form-field>
+                <mat-label>Matière</mat-label>
+                <mat-select [compareWith]="compareMatiereOptions" name="matiere"  formControlName="matiere" required>
+                  <mat-option *ngFor="let matiere of matieres" [value]="matiere">{{matiere.nom}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Retour</button>
+              <button mat-button matStepperNext>Suivant</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Détails du rendu</ng-template>
+            <mat-checkbox (click)="onAssignmentRendu()" formControlName="rendu"  name="assignment-rendu">
+              Rendu
+            </mat-checkbox>
+            <ng-container *ngIf="thirdFormGroup.controls['rendu'].value">
+              <mat-form-field>
+                <input matInput placeholder="Edition de la note" formControlName="note" name="assignment-note" [required]="thirdFormGroup.controls['rendu'].value">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Remarques</mat-label>
+                <textarea matInput placeholder="Edition des remarques" formControlName="remarques" name="assignment-remarques"></textarea>
+              </mat-form-field>
+            </ng-container>
+            <div>
+              <button mat-button matStepperPrevious>Retour</button>
+              <button mat-button matStepperNext>Suivant</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Fini</ng-template>
+          <p>Il ne reste plus qu'à sauvegarder</p>
+          <div>
+            <button mat-button matStepperPrevious>Retour</button>
+            <!--
+            <button mat-button (click)="stepper.reset()">Réinitialiser</button>
+            -->
+            <button mat-button (click)="onSaveAssignment()">Sauvegarder</button>
+    
+          </div>
+        </mat-step>
+      </mat-stepper>
    </div>
       
