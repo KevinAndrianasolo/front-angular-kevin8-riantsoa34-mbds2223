@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Complétez les informations suivantes </h2>
+<form ngForm #assignmentForm class="form">
+    <div mat-dialog-content>
+        <mat-form-field>
+          <mat-label>Note</mat-label>
+          <input matInput [(ngModel)]="assignment.note" name="note" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Remarques</mat-label>
+          <textarea matInput placeholder="Edition des remarques" [(ngModel)]="assignment.remarques" name="remarques" required></textarea>
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onCancel()">Annuler</button>
+        <button mat-button (click)="onSubmit()" cdkFocusInitial>Enregistrer</button>
+      </div>
+</form>

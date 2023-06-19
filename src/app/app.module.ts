@@ -35,6 +35,17 @@ import { LoginComponent } from './login/login.component';
 import { MatSelectModule } from '@angular/material/select';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './components/home/home.component';
+import { AssignmentsDragAndDropComponent } from './components/assignments-drag-and-drop/assignments-drag-and-drop.component';
+import {NgFor} from '@angular/common';
+
+import {
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+} from '@angular/cdk/drag-drop';
+
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { AssignmentDialogEditComponent } from './components/assignment-dialog-edit/assignment-dialog-edit.component';
 
 const routes: Routes = [
   {
@@ -72,7 +83,9 @@ const routes: Routes = [
     AddAssignmentComponent,
     EditAssignmentComponent,
     LoginComponent,
-    SidenavComponent
+    SidenavComponent,
+    AssignmentsDragAndDropComponent,
+    AssignmentDialogEditComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +96,9 @@ const routes: Routes = [
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule, MatSelectModule, MatSidenavModule, MatSnackBarModule
+    MatTableModule, MatPaginatorModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
+    CdkDropListGroup, CdkDropList, NgFor, CdkDrag, MatDialogModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
