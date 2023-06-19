@@ -84,13 +84,9 @@ export class AddAssignmentComponent {
 
   // Function to focus on the field with an error
   focusOnFieldWithError(form : FormGroup, stepIndex : number) {
-    
     const firstErrorField = Object.keys(form.controls).find(field => form.controls[field].invalid);
     if(!firstErrorField) return;
-    console.log(firstErrorField);
-
     this.stepper.selectedIndex = stepIndex;
-
     const fieldElement = document.getElementById(firstErrorField);
     if (fieldElement) {
       fieldElement.focus();
