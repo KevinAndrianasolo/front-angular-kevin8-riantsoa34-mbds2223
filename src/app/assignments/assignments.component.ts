@@ -148,4 +148,7 @@ export class AssignmentsComponent implements OnInit {
     this.limit = event.pageSize;
     this.getAssignments();
   }
+  formatLabel(value: number): string {
+    return `${value} assignments par page`;
+  }
 }

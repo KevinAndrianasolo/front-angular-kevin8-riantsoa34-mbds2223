@@ -70,3 +70,12 @@
     height: 100%;
     object-fit: cover;
 }
+.mat-mdc-slider.mat-primary{
+  width: 80%;
+}
+.paginator-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

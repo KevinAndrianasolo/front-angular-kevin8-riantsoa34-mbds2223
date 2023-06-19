@@ -30,7 +30,7 @@
                         <p>{{item.nom}} NON RENDU id = {{item._id}}</p>
                     </ng-template>
                     <div class="prof-container">
-                        <p><b>Photo du prof</b></p>
+                        <p><b>Photo du prof : {{item.matiere.prof.nom}}</b></p>
                         <div mat-card-avatar class="example-header-image">
                             <img class="avatar" src="{{item.matiere.prof.photo}}">
                         </div>
@@ -76,7 +76,7 @@
                         <p>{{item.nom}} NON RENDU id = {{item._id}}</p>
                     </ng-template>
                     <div class="prof-container">
-                        <p><b>Photo du prof</b></p>
+                        <p><b>Photo du prof : {{item.matiere.prof.nom}}</b></p>
                         <div mat-card-avatar class="example-header-image">
                             <img class="avatar" src="{{item.matiere.prof.photo}}">
                         </div>

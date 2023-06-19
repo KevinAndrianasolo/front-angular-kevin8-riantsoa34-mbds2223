@@ -28,7 +28,7 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
+import {MatSliderModule} from '@angular/material/slider';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';  
@@ -97,7 +97,7 @@ const routes: Routes = [
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
-    CdkDropListGroup, CdkDropList, NgFor, CdkDrag, MatDialogModule
+    CdkDropListGroup, CdkDropList, NgFor, CdkDrag, MatDialogModule, MatSliderModule
     
   ],
   providers: [],

@@ -1,25 +1,4 @@
-<!--
-<mat-card *ngIf="assignmentTransmis">
-  <mat-card-content>
-    <mat-card-title>{{assignmentTransmis.nom}}</mat-card-title>
-    <mat-card-subtitle>Date de rendu : {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yy'}}</mat-card-subtitle>
-  </mat-card-content>
-  <mat-card-actions id="bottom">
-    <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
-      Rendu
-    </mat-checkbox>
-    
-    <button mat-raised-button color="primary"
-            (click)="onEditAssignment()"
-            [disabled]="!isLogged()"
-    >
-      EDIT
-    </button>
-
-  <button mat-raised-button color="accent" (click)="onDeleteAssignment()">DELETE</button>
-  </mat-card-actions>
-</mat-card>
--->
+<h1>Détails de l'assignment {{assignmentTransmis?.nom}}</h1>
 <mat-card class="assignment-card"  *ngIf="assignmentTransmis">
   <mat-card-header>
       <div mat-card-avatar class="example-header-image">
@@ -43,7 +22,7 @@
           <p>{{assignmentTransmis.nom}} NON RENDU id = {{assignmentTransmis._id}}</p>
       </ng-template>
       <div class="prof-container">
-          <p><b>Photo du prof</b></p>
+          <p><b>Photo du prof : {{assignmentTransmis.matiere.prof.nom}}</b></p>
           <div mat-card-avatar class="example-header-image">
               <img class="avatar" src="{{assignmentTransmis.matiere.prof.photo}}">
           </div>
