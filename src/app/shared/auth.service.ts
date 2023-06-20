@@ -32,6 +32,7 @@ export class AuthService {
     user = localStorage.getItem("user")
     return JSON.parse(user);
   }
+  //si il a token = est logged
   isLogin() {
     if (localStorage.getItem("token") == null) {
       return false;
@@ -39,16 +40,17 @@ export class AuthService {
     return true;
   }
   logOut() {
-    console.log("ON SE DELOGGE")
+//On a juste effacerles stores des token et user
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   
   }
 
   // si on l'utilisait on ferai isAdmin().then(...)
   isAdmin() {
-    // Pour le moment, version simplifiée...
-    // on suppose qu'on est admin si on est loggué
+    
     const isUserAdminPromise = new Promise((resolve, reject) => {
+      //Si l'user connecté a pour role 1 qui signifie admin
       if(this.getStockedUser().role==1){
         resolve(true);
       }

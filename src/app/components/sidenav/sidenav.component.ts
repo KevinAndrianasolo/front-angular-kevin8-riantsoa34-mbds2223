@@ -13,7 +13,7 @@ export class SidenavComponent {
   title = 'Application de gestion de devoirs à rendre';
   labelConnexion = "Se connecter";
   nom:string = "";
-
+  photo:string = "";
   currentRoute:string = "";
 
   constructor(private authService:AuthService, 
@@ -48,23 +48,9 @@ export class SidenavComponent {
   isLogged() {
     if(this.authService.isLogin()==true) {
       this.labelConnexion = "Se déconnecter";
-      // this.authService.getUserLogged().subscribe(
-      //   (d:any)=>{
-      //     this.nom =d.nom;
-        
-       
-      //   },
-      //   (err:any) => {
-         
-      //       // Autre gestion d'erreur
-      //       this.nom = err.message;
-          
-          
-      //   }
-      // );
- 
   
       this.nom =this.authService.getStockedUser().nom  
+      this.photo = this.authService.getStockedUser().photo
     }
     else{
       this.labelConnexion = "Se connecter";
