@@ -19,10 +19,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {MatStepperModule} from '@angular/material/stepper';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
@@ -99,7 +99,8 @@ const routes: Routes = [
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatTableModule, MatPaginatorModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
-    CdkDropListGroup, CdkDropList, NgFor, CdkDrag, MatDialogModule, MatSliderModule
+    CdkDropListGroup, CdkDropList, NgFor, CdkDrag, MatDialogModule, MatSliderModule, MatStepperModule,
+    ReactiveFormsModule
     
   ],
   providers: [

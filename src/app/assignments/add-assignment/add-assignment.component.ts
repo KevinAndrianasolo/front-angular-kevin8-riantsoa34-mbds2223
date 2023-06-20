@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Assignment, Matiere } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Router } from '@angular/router';
 import { MatieresService } from 'src/app/shared/matieres.service';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatStepper } from '@angular/material/stepper';
 import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
@@ -19,13 +21,22 @@ export class AddAssignmentComponent {
   assignmentFormValues !: Assignment;
 
   matieres: Matiere[] = [];
-
+  firstFormGroup = this._formBuilder.group({
+    nom: [null, Validators.required],
+    dateDeRendu: [null, Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    matiere: [null, Validators.required],
+  });
+  isLinear = false;
+  @ViewChild('stepper') stepper!: MatStepper;
 
   constructor(private assignmentsService: AssignmentsService,
     private matieresService: MatieresService,
     private router: Router, 
     private _snackBar: MatSnackBar,
-    private authService :AuthService) { }
+    private _formBuilder: FormBuilder,
+    private authService : AuthService) { }
 
   ngOnInit(): void {
     this.assignmentFormValues = new Assignment();
@@ -41,7 +52,15 @@ export class AddAssignmentComponent {
         console.log("Données reçues", data);
       });
   }
-  onSubmit(event: any) {
+  onSubmit() {
+    this.focusOnFieldWithError(this.secondFormGroup, 1);
+    this.focusOnFieldWithError(this.firstFormGroup, 0);
+    
+
+    Object.assign(this.assignmentFormValues, this.firstFormGroup.getRawValue());
+    Object.assign(this.assignmentFormValues, this.secondFormGroup.getRawValue());
+    console.log(this.assignmentFormValues);
+
     // On vérifie que les champs ne sont pas vides
     if (!this.assignmentFormValues.nom || this.assignmentFormValues.nom === "") return;
     if (!this.assignmentFormValues.dateDeRendu) return;
@@ -65,6 +84,18 @@ export class AddAssignmentComponent {
 
       });
   }
+
+  // Function to focus on the field with an error
+  focusOnFieldWithError(form : FormGroup, stepIndex : number) {
+    const firstErrorField = Object.keys(form.controls).find(field => form.controls[field].invalid);
+    if(!firstErrorField) return;
+    this.stepper.selectedIndex = stepIndex;
+    const fieldElement = document.getElementById(firstErrorField);
+    if (fieldElement) {
+      fieldElement.focus();
+    }
+  }
+
   onSelectionChange(event: MatSelectChange): void {
     // Access the selected object using event.value
     console.log('Selected matiere:', event.value);
