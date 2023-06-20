@@ -5,10 +5,10 @@
             <a mat-list-item routerLink="/">Accueil</a>
             <a mat-list-item routerLink="/assignments">Assignments</a>
             <!-- Add more navigation links as needed -->
-            <a mat-list-item routerLink="/login">
-                <!--<button mat-raised-button (click)="login()">{{labelConnexion}}</button>-->
-                {{labelConnexion}}
-            </a>
+          
+            <a mat-list-item (click)="login()">{{labelConnexion}}</a>
+                
+        
 
            
         </mat-nav-list>

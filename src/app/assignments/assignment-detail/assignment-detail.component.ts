@@ -48,6 +48,8 @@ export class AssignmentDetailComponent implements OnInit {
 
         // et on navigue vers la page d'accueil
         this.router.navigate(["/assignments"]);
+      },error=>{
+        this._snackBar.open("Vous devez vous connecter en tant qu'admin", "Fermer");
       });
 
   }

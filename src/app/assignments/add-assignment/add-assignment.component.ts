@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatieresService } from 'src/app/shared/matieres.service';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/shared/auth.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -23,7 +24,8 @@ export class AddAssignmentComponent {
   constructor(private assignmentsService: AssignmentsService,
     private matieresService: MatieresService,
     private router: Router, 
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private authService :AuthService) { }
 
   ngOnInit(): void {
     this.assignmentFormValues = new Assignment();
@@ -48,7 +50,8 @@ export class AddAssignmentComponent {
     this.assignmentFormValues.rendu = false;
 
     // ici on doit mettre l'utilisateur connécté
-    this.assignmentFormValues.auteur = {"nom":"Aurthur Eveling","photo":"http://dummyimage.com/141x100.png/dddddd/000000"};
+    
+    this.assignmentFormValues.auteur = {"nom":this.authService.getStockedUser().nom,"photo":this.authService.getStockedUser().photo};
 
     // on demande au service d'ajouter l'assignment
     this.assignmentsService.addAssignment(this.assignmentFormValues)

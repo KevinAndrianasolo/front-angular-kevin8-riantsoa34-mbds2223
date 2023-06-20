@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,7 +30,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {MatSliderModule} from '@angular/material/slider';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { authGuard } from './shared/auth.guard';
+import { authGuard,adminGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';  
 import { MatSelectModule } from '@angular/material/select';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -46,6 +46,7 @@ import {
 
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { AssignmentDialogEditComponent } from './components/assignment-dialog-edit/assignment-dialog-edit.component';
+import { AuthInterceptor } from './shared/AuthInterceptor';
 
 const routes: Routes = [
   {
@@ -54,11 +55,12 @@ const routes: Routes = [
   },
   {
     path: 'assignments',
-    component: AssignmentsComponent
+    component: AssignmentsComponent,
   },
   {
     path: 'add',
-    component: AddAssignmentComponent
+    component: AddAssignmentComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'assignments/:id',
@@ -67,7 +69,7 @@ const routes: Routes = [
   {
     path: 'assignments/:id/edit',
     component: EditAssignmentComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard,adminGuard]
   },
   {
     path: 'login',
@@ -100,7 +102,14 @@ const routes: Routes = [
     CdkDropListGroup, CdkDropList, NgFor, CdkDrag, MatDialogModule, MatSliderModule
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

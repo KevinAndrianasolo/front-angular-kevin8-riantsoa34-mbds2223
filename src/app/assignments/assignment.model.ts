@@ -1,7 +1,9 @@
 export class Auteur {
     _id?: string;
-    nom!: string;
-    photo!: string;
+    nom?: string;
+    photo?: string;
+    email?: string;
+    password?:string;
 }
 export class Prof {
     _id?: string;
